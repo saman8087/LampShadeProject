@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DiscountManagment.Application.Contracts\DiscountManagment.Application.Contracts.csproj" />
     <ProjectReference Include="..\DiscountManagment.Configuration\DiscountManagment.Configuration.csproj" />
+    <ProjectReference Include="..\InventoryManagment.Infrastructure.Configure\InventoryManagment.Infrastructure.Configuration.csproj" />
     <ProjectReference Include="..\ShopManagment.Application.Contracts\ShopManagment.Application.Contracts.csproj" />
     <ProjectReference Include="..\ShopManagment.Configuration\ShopManagment.Configuration.csproj" />
     <ProjectReference Include="..\ShopManagment.Infrastructure.EFCore\ShopManagment.Infrastructure.EFCore.csproj" />

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShopManagment.Configuration;
 using DiscountManagement.Configuration;
+using InventoryManagment.Infrastructure.Configure;
 
 
 namespace ServiceHost
@@ -25,6 +26,7 @@ namespace ServiceHost
             var connectionString = Configuration.GetConnectionString("LampshadesDb");
             ShopManagmentBootstrapper.Configure(services, connectionString);
             DiscountManagementBootstrapper.Configure(services, connectionString);
+            InvantoryManagmentBootstrapper.Configure(services, connectionString);
             services.AddRazorPages();
         }
 
