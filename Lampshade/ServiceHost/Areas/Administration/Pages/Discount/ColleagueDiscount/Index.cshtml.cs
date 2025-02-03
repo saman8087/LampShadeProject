@@ -60,5 +60,15 @@ namespace ServiceHost.Areas.Administration.Pages.Discount.ColleagueDiscount
             var result = _colleagueDiscountApplication.Edit(command);
             return new JsonResult(result);
         }
+        public IActionResult OnGetRemove(long id)
+        {
+            _colleagueDiscountApplication.Remove(id);
+            return RedirectToPage("./Index");
+        }
+        public IActionResult OnGetRstore(long id)
+        {
+            _colleagueDiscountApplication.Restore(id);
+            return RedirectToPage("./Index");
+        }
     }
 }

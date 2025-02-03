@@ -1,18 +1,18 @@
 ﻿@page
-@model ServiceHost.Areas.Administration.Pages.Discount.ColleagueDiscount.IndexModel
+@model ServiceHost.Areas.Administration.Pages.Inventory.IndexModel
 @{
 }
 
 @{
     Layout = "Shared/_AdminLayout";
-    ViewData["title"] = "Colleague Discount Managment";
+    ViewData["title"] = "Inventory Managment";
 }
 
 <div class="row">
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">Define Colleague Dicount</a>
+            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">Create New Inventory</a>
         </p>
     </div>
 </div>
@@ -21,7 +21,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Search Colleague Discounts</h3>
+                <h3 class="panel-title">Search Inventory</h3>
             </div>
             <div class="panel-body">
                 <form class="form-inline" role="form" method="get">                    
@@ -30,6 +30,15 @@
                         <select class="form-control" asp-for="SearchModel.ProductId" asp-items="Model.Products">
                             <option value="0">Select Product...</option>
                         </select>
+                    </div>
+                    <div class="form-group m-r-10">
+                        <div class="checkbox checkbox-primary">
+                            <input asp-for="SearchModel.InStock">
+                            <label asp-for="SearchModel.InStock">
+                                Search in InActives 
+                            </label>
+                        </div>
+
                     </div>
                     <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">Search</button>
                     <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">See All</a>
@@ -43,7 +52,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Colleague Dicounts List (@Model.ColleagueDiscounts.Count)</h3>
+                <h3 class="panel-title">Inventory List (@Model.Inventory.Count)</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -53,45 +62,42 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Product</th>
-                                    <th>Discount Rate</th>
-                                    <th> Creation Date</th>
+                                    <th>Price</th>
+                                    <th>Current Count</th>
+                                    <th>Creation Date</th>
                                     <th>Account</th>                               
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.ColleagueDiscounts)
+                                @foreach (var item in Model.Inventory)
                                 {
                                     <tr>
                                         <td>@item.Id</td>
                                         <td>@item.Product</td>
-                                        <td>@item.DiscountRate%</td> 
-                                        <td>@item.CreationDate</td>                                      
+                                        <td>@item.UnitPrice</td> 
+                                        <td>@item.CurrentCount</td>
+                                        <td>@item.CreationDate</td>
                                         <td>
                                             <a class="btn btn-warning waves-effect waves-light m-b-5"
-                                               href="#showmodal=@Url.Page("./Index", "Edit", new { id = item.Id})">
+                                               href="#showmodal=@Url.Page("./Index", "Edit", new {id = item.Id})">
                                                 <i class="fa fa-edit"></i> Edit
                                             </a>
-                                            @if (item.IsRemoved)
-                                            {
-                                                <a asp-page="./Index" asp-page-handler="Restore" asp-route-id="@item.Id"
-                                                class="btn btn-success btn-custom waves-effect waves-light m-b-5 "> Active </a>
-
-                                            }
-                                            else
-                                            {
-                                                <a asp-page="./Index" asp-page-handler="Remove" asp-route-id="@item.Id"
-                                                class="btn btn-danger btn-custom waves-light m-b-5" > Deactive </a>
-
-                                            }
+                                            <a class="btn btn-success waves-effect waves-light m-b-5"
+                                               href="#showmodal=@Url.Page("./Index", "Increase", new {id = item.Id})">
+                                                <i class="fa fa-plus"></i> Increase
+                                            </a>
+                                            <a class="btn btn-danger waves-effect waves-light m-b-5"
+                                               href="#showmodal=@Url.Page("./Index", "Reduce", new {id = item.Id})">
+                                                <i class="fa fa-minus "></i> Reduce
+                                            </a>
+                                            <a class="btn btn-primary waves-effect waves-light m-b-5"
+                                               href="#showmodal=@Url.Page("./Index", "Log", new {id = item.Id})">
+                                                <i class="fa fa-recycle " onclick="$('.modal-dialog').css('width,'60%')"></i> Show Inventory Log
+                                            </a>
                                         </td>
+                                       
                                     </tr>
                                 }
-                                <tr>
-                                    <td>
-                                <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">Search</button>
-                                <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">See All</a>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

@@ -12,9 +12,9 @@ namespace ShopManagment.Infrastructure.EFCore.Repository
 {
     public class ProductPictureRepository : RepositoryBase<long, ProductPicture>, IProductPictureRepository
     {
-        private readonly ShopConterxt _context;
+        private readonly ShopContext _context;
 
-        public ProductPictureRepository(ShopConterxt context) : base(context) 
+        public ProductPictureRepository(ShopContext context) : base(context) 
         {
             _context = context;
         }

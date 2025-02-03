@@ -11,11 +11,7 @@ namespace ShopManagment.Application.Contracts.Product
     public interface IProductApplication
     {
         OperationResult Create(CreateProduct command);
-        OperationResult Edit(EditProduct command);
-
-        OperationResult IsInStock(long id);
-        OperationResult NotInStock(long id);
-
+        OperationResult Edit(EditProduct command);              
         EditProduct GetDetails(long id);
         List<ProductViewModel> GetProducts();
 

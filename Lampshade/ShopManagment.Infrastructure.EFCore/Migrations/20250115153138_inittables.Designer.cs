@@ -9,7 +9,7 @@ using ShopManagment.Infrastructure.EFCore;
 
 namespace ShopManagment.Infrastructure.EFCore.Migrations
 {
-    [DbContext(typeof(ShopConterxt))]
+    [DbContext(typeof(ShopContext))]
     [Migration("20250115153138_inittables")]
     partial class inittables
     {

@@ -10,9 +10,9 @@ namespace _01_LampshadeQuery.Query
 {
     public class ProductCategoryQuery : IProductCategoryQuery
     {
-        private readonly ShopConterxt _shopConterxt;
+        private readonly ShopContext _shopConterxt;
 
-        public ProductCategoryQuery(ShopConterxt shopConterxt)
+        public ProductCategoryQuery(ShopContext shopConterxt)
         {
             _shopConterxt = shopConterxt;
         }

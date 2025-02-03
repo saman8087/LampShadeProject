@@ -8,8 +8,8 @@ namespace _01_LampshadeQuery.Query
 {
     public class SlideQuery : ISlideQuery
     {
-        private readonly ShopConterxt _shopContext;
-        public SlideQuery(ShopConterxt shopContext)
+        private readonly ShopContext _shopContext;
+        public SlideQuery(ShopContext shopContext)
         {
             _shopContext = shopContext;
         }

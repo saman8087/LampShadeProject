@@ -16,8 +16,8 @@ namespace DiscountManagment.Infrastructure.EFCore.Repository
     public class CustomerDiscountRepository : RepositoryBase<long, CustomerDiscount>, ICustomerDiscountRepository
     {
         private readonly DiscountContext _context;
-        private readonly ShopConterxt _shopContext;
-        public CustomerDiscountRepository(DiscountContext context, ShopConterxt shopcontext) : base(context)
+        private readonly ShopContext _shopContext;
+        public CustomerDiscountRepository(DiscountContext context, ShopContext shopcontext) : base(context)
         {
             _context = context;
             _shopContext = shopcontext;

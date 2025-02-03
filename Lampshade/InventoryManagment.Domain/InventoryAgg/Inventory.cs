@@ -47,3 +47,6 @@ namespace InventoryManagment.Domain.InventoryAgg
 
     }
 }
+
+
+

@@ -8,9 +8,8 @@ namespace ShopManagment.Application.Contracts.Product
     public class CreateProduct
     {
         public string  Name { get;  set; }
-        public string Code { get;  set; }
-        public double UnitPrice { get;  set; }
-        public bool IsInStock { get;  set; }
+        public string Code { get;  set; }       
+       
         public string ShortDescription { get;   set; }
         public string Description { get;  set; }
         public string Picture { get;  set; }

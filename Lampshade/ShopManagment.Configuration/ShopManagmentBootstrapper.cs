@@ -41,7 +41,7 @@ namespace ShopManagment.Configuration
 
            
 
-            services.AddDbContext<ShopConterxt>(x => x.UseSqlServer(connectionstring));
+            services.AddDbContext<ShopContext>(x => x.UseSqlServer(connectionstring));
         }
 
     }

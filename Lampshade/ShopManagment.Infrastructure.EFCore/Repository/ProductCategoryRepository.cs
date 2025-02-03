@@ -10,8 +10,8 @@ namespace ShopManagment.Infrastructure.EFCore.Repository
 {
     public class ProductCategoryRepository : RepositoryBase<long, ProductCategory>, IProductCategoryRepository
     {
-        private readonly ShopConterxt _context;
-        public ProductCategoryRepository(ShopConterxt context) : base(context)
+        private readonly ShopContext _context;
+        public ProductCategoryRepository(ShopContext context) : base(context)
         {
             _context = context;
         }

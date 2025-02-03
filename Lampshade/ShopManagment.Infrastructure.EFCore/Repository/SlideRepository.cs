@@ -13,9 +13,9 @@ namespace ShopManagment.Infrastructure.EFCore.Repository
 {
     public class SlideRepository : RepositoryBase<long, Slide>, ISlideRepository
     {
-        private readonly ShopConterxt _context;
+        private readonly ShopContext _context;
 
-        public SlideRepository(ShopConterxt context) : base(context)
+        public SlideRepository(ShopContext context) : base(context)
         {
             _context = context;
         }

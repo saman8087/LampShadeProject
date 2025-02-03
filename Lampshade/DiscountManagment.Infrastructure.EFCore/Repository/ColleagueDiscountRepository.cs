@@ -15,10 +15,10 @@ namespace DiscountManagment.Infrastructure.EFCore.Repository
     public class ColleagueDiscountRepository : RepositoryBase<long, ColleagueDiscount>, IColleagueDiscountRepository
     {
         private readonly DiscountContext _context;
-        private readonly ShopConterxt _shopConterxt;
+        private readonly ShopContext _shopConterxt;
        
 
-        public ColleagueDiscountRepository(DiscountContext context, ShopConterxt shopConterxt) : base(context)
+        public ColleagueDiscountRepository(DiscountContext context, ShopContext shopConterxt) : base(context)
         {
             _context = context;
             _shopConterxt= shopConterxt;

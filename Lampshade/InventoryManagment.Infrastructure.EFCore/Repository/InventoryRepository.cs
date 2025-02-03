@@ -1,6 +1,8 @@
-﻿using _0_Framework.Infrastructure;
+﻿using _0_Framework.Application;
+using _0_Framework.Infrastructure;
 using InventoryManagment.Application.Contract.Inventory;
 using InventoryManagment.Domain.InventoryAgg;
+using InventoryManagment.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using ShopManagment.Infrastructure.EFCore;
 using System.Collections.Generic;
@@ -11,9 +13,9 @@ namespace InventoryManagment.Infrastructure.EFCore.Repository
     public class InventoryRepository : RepositoryBase<long, Inventory>, IInventoryRepository
     {
         private readonly InventoryContext _inventoryContext;
-        private readonly ShopConterxt _shopContext;
+        private readonly ShopContext _shopContext;
 
-        public InventoryRepository(InventoryContext inventoryContext, ShopConterxt shopContext) : base(inventoryContext) 
+        public InventoryRepository(InventoryContext inventoryContext, ShopContext shopContext) : base(inventoryContext) 
         {
             _shopContext = shopContext;
             _inventoryContext = inventoryContext;
@@ -22,12 +24,12 @@ namespace InventoryManagment.Infrastructure.EFCore.Repository
 
         public Inventory GetBy(long ProductId)
         {
-            return _inventoryContext.inventory.FirstOrDefault(x => x.ProductId == ProductId);
+            return _inventoryContext.Inventory.FirstOrDefault(x => x.ProductId == ProductId);
         }
 
         public EditInventory GetDatails(long id)
         {
-            return _inventoryContext.inventory.Select(x => new EditInventory
+            return _inventoryContext.Inventory.Select(x => new EditInventory
             {
                 Id = id,
                 ProductId = x.ProductId,
@@ -35,28 +37,55 @@ namespace InventoryManagment.Infrastructure.EFCore.Repository
             }).FirstOrDefault(x => x.Id == id);
         }
 
+        public List<InventoryOperationViewModel> GetOperationLog(long inventoryId)
+        {
+            var inventory = _inventoryContext.Inventory.FirstOrDefault(x=>x.Id == inventoryId);
+            return inventory.Operations.Select(x => new InventoryOperationViewModel
+            {
+                Id = x.Id,
+                Count = x.Count,
+                Description = x.Description,
+                Operation = x.Operation,
+                CurrentCount = x.CurrentCount,
+                OperaionDate = x.OperaionDate.ToFarsi(),
+                Operator = "System Admin",
+                OperatorId = x.OperatorId,
+                OrderId = x.OrderId
+                
+            }).OrderByDescending(x=>x.Id).ToList();
+
+            
+        }
+      
+
         public List<InventoryViewModel> Search(InventorySearchModel searchModel)
         {
             var products = _shopContext.Products.Select(x => new { x.Id, x.Name }).ToList();
-            var query = _inventoryContext.inventory.Select(x => new InventoryViewModel
+            var query = _inventoryContext.Inventory.Select(x => new InventoryViewModel
             {
                 Id = x.Id,
                 UnitPrice = x.UnitPrice,
                 InStock = x.InStock,
                 ProductId = x.ProductId,
-                CurrentCount = x.CalculateCurrentCount()
+                CurrentCount = x.CalculateCurrentCount(),
+                CreationDate = x.CreationDate.ToFarsi()
+
             });
+
             if (searchModel.ProductId > 0)
                 query = query.Where(x => x.ProductId == searchModel.ProductId);
-           
-            if (!searchModel.InStock)
-                query = query.Where(x => !x.InStock);
-            var inventory = query.OrderByDescending(x=>x.Id).ToList();
-            inventory.ForEach(item => item.Product = products.FirstOrDefault(x => x.Id == item.ProductId)?.Name);
 
+            if (searchModel.InStock)
+                query = query.Where(x => !x.InStock);
+
+            var inventory = query.OrderByDescending(x => x.Id).ToList();
+
+            inventory.ForEach(item =>
+                item.Product = products.FirstOrDefault(x => x.Id == item.ProductId)?.Name);
 
             return inventory;
-                 
+
         }
+     
     }
 }

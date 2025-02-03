@@ -10,9 +10,10 @@ namespace ShopManagment.Infrastructure.EFCore.Repository
 {
     public class ProductRepository : RepositoryBase<long, Product>, IProductRepository
     {
-        private readonly ShopConterxt _context;
+        private readonly ShopContext _context;
+        
 
-        public ProductRepository(ShopConterxt context) : base(context) 
+        public ProductRepository(ShopContext context) : base(context) 
         {
             _context = context;
         }
@@ -32,9 +33,8 @@ namespace ShopManagment.Infrastructure.EFCore.Repository
                 Picture=x.Picture,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
-                IsInStock = x.IsInStock,
-                ShortDescription = x.ShortDescription,
-                UnitPrice = x.UnitPrice
+                ShortDescription = x.ShortDescription
+              
             }).FirstOrDefault(x => x.Id == id);
         }
 
@@ -56,7 +56,6 @@ namespace ShopManagment.Infrastructure.EFCore.Repository
                 CategoryId = x.CategoryId,
                 Code = x.Code,
                 Picture = x.Picture,
-                UnitPrice = x.UnitPrice,
                 CreatioDate = x.CreationDate.ToFarsi()
 
             });
